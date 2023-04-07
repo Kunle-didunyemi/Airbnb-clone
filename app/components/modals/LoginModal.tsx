@@ -7,11 +7,11 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
-import Input from "../Input";
+import Input from "../input/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "@/app/hooks/useLoginModals";
-import {signIn} from 'next-auth/react';
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
@@ -33,28 +33,28 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    signIn('credentials', {
+    signIn("credentials", {
       ...data,
       redirect: false,
-    }).then((callback)=>{
+    }).then((callback) => {
       setIsLoading(false);
 
-      if(callback?.ok){
-        toast.success('Logged in');
+      if (callback?.ok) {
+        toast.success("Logged in");
         router.refresh();
         loginModal.onClose();
       }
 
-      if(callback?.error){
-        toast.error(callback.error)
+      if (callback?.error) {
+        toast.error(callback.error);
       }
-    })
+    });
   };
 
-  const toggle = useCallback(()=>{
-    loginModal.onClose()
-    registerModal.onOpen()
-  }, [loginModal, registerModal])
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className=" flex flex-col gap-4">
@@ -92,14 +92,15 @@ const LoginModal = () => {
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={()=> signIn('github')}
+        onClick={() => signIn("github")}
       />
       <div className=" text-neutral-500 text-center mt-4 font-light">
         <div className=" justify-center flex flex-row items-center gap-2">
           <div>First time using Airbnb?</div>
-          <div 
-          onClick={toggle}
-          className=" text-neutral-800 cursor-pointer hover:underline">
+          <div
+            onClick={toggle}
+            className=" text-neutral-800 cursor-pointer hover:underline"
+          >
             Create an account
           </div>
         </div>
