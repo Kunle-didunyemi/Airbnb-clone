@@ -114,7 +114,7 @@ const RentModal = () => {
     if (step === STEPS.CATEGORY) {
       return undefined;
     }
-    return "Bact";
+    return "Back";
   }, [step]);
 
   let bodyContent = (
